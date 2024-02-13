@@ -31,7 +31,7 @@ index=windows sourcetype=DhcpSrvLog (description=*successful OR description=assi
 | convert ctime(_time) as Date timeformat=%m/%d/%y
 | eval Time=strftime(_time,"%H:%M:%S %p")
 | join dest_ip [ search index=windows description=assign | fields dest_ip,dest_mac ]
-| eval Authenticity=case(match(dest_nt_host,"\d\d\d\d\d\d-(D|L).(?i)ewbc.net") OR match(dest_nt_host, "(win7).*(a).(?i)ewbc.net") OR match(dest_nt_host, "(?i)\d\d\d(L|W).(?i)ewbc.net") OR match(dest_nt_host,"\d\d\d\d\d\d-(TC).(?i)ewbc.net"), "VALID",1=1,"NOT VALID")
+| eval Authenticity=case(match(dest_nt_host,"\d\d\d\d\d\d-(D|L).(?i)your-domain.net") OR match(dest_nt_host, "(win7).*(a).(?i)your-domain.net") OR match(dest_nt_host, "(?i)\d\d\d(L|W).(?i)your-domain.net") OR match(dest_nt_host,"\d\d\d\d\d\d-(TC).(?i)your-domain.net"), "VALID",1=1,"NOT VALID")
 | rename dest_ip as "IP Address" dest_mac as "MAC Address" dest_nt_host as "Hostname" signature as "Description"
 | search Authenticity="VALID"
 | table "Date" "Time" "IP Address" "MAC Address" "Hostname" Authenticity Location
